@@ -26,7 +26,7 @@ function verificarLogado() {
     alert("Voçê não está logado!");
     window.location.href = "./index.html";
   } else {
-    axios.get(`${url}/user/${idUserLogado}/msg`).then(() => {
+    axios.get(`${urlDev}/user/${idUserLogado}/msg`).then(() => {
       mostrarTabela();
     });
   }
@@ -35,7 +35,7 @@ verificarLogado();
 
 // função que carrega as informações na tabela.
 async function mostrarTabela() {
-  await axios.get(`${url}/user/${idUserLogado}/msg`).then((res) => {
+  await axios.get(`${urlDev}/user/${idUserLogado}/msg`).then((res) => {
     let msgs = res.data;
     const table = document.querySelector("#tbody");
 
@@ -72,7 +72,7 @@ async function apagarLinha(posicao) {
 
   if (confirm("Deseja realmente deletar esta mensagem?")) {
     await axios
-      .delete(`${url}/user/${idUserLogado}/msg/${id}`)
+      .delete(`${urlDev}/user/${idUserLogado}/msg/${id}`)
       .catch((error) => {
         console.log(error);
       });
@@ -83,7 +83,7 @@ async function apagarLinha(posicao) {
 async function editarLinha(posicao) {
   let id = posicao;
   await axios
-    .get(`${url}/user/${idUserLogado}/msg/${id}`)
+    .get(`${urlDev}/user/${idUserLogado}/msg/${id}`)
     .then((res) => {
       let msg = res.data;
       let novaDesc = msg.descricao;
@@ -107,7 +107,7 @@ async function editar(posicao) {
     if (!!!desNova || desNova == "" || !!!detNovo || detNovo == "") {
       alert("Preencha os campos de descrição e detalhamento!");
     } else {
-      await axios.put(`${url}/user/${idUserLogado}/msg/${id}`, {
+      await axios.put(`${urlDev}/user/${idUserLogado}/msg/${id}`, {
         descricao: desNova,
         detalhamento: detNovo,
       });
@@ -129,7 +129,7 @@ async function addMensagem(desc, det) {
     alert("Preencha os campos de descrição e detalhamento!");
   } else {
     await axios
-      .post(`${url}/user/${idUserLogado}/msg`, {
+      .post(`${urlDev}/user/${idUserLogado}/msg`, {
         descricao: descricaoNova,
         detalhamento: detalhamentoNovo,
       })

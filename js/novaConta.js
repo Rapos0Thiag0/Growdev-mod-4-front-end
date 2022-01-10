@@ -11,7 +11,7 @@ const urlDev = "http://localhost:8080";
 async function CriaNovoUsuario(nome, senha) {
   // const user = new Usuario(nome, senha);
   await axios
-    .post(`${url}/user`, { params: { nome: nome, senha: senha } })
+    .post(`${urlDev}/user`, { params: { nome: nome, senha: senha } })
     .then((res) => {
       const novoUser = {
         nome: res.data.nome,
