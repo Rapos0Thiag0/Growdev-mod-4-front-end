@@ -21,12 +21,12 @@ const userId = getParameterByName("uid");
 const idUserLogado = JSON.parse(localStorage.getItem("user_id"));
 
 // evita que um usuário que não esteja logado acesse a pagina de outro usuário
-function verificarLogado() {
+async function verificarLogado() {
   if (idUserLogado === null) {
     alert("Voçê não está logado!");
     window.location.href = "./index.html";
   } else {
-    axios.get(`${urlDev}/user/${idUserLogado}/msg`).then(() => {
+    await axios.get(`${urlDev}/user/${idUserLogado}/msg`).then(() => {
       mostrarTabela();
     });
   }

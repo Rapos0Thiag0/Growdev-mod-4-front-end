@@ -1,17 +1,17 @@
 const url = "https://mod-4-be.herokuapp.com";
 const urlDev = "http://localhost:8080";
 
-// class Usuario {
-//   constructor(nome, senha) {
-//     this.nome = nome;
-//     this.senha = senha;
-//   }
-// }
+class Usuario {
+  constructor(nome, senha) {
+    this.nome = nome;
+    this.senha = senha;
+  }
+}
 
 async function CriaNovoUsuario(nome, senha) {
-  // const user = new Usuario(nome, senha);
+  const user = new Usuario(nome, senha);
   await axios
-    .post(`${urlDev}/user`, { params: { nome: nome, senha: senha } })
+    .post(`${urlDev}/user`, user)
     .then((res) => {
       const novoUser = {
         nome: res.data.nome,
