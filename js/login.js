@@ -5,7 +5,7 @@ async function login() {
   const usuario = document.querySelector("#usuarioNoLogin").value;
   const senha = document.querySelector("#senhaNoLogin").value;
   await axios
-    .get(`${urlDev}/user`, { params: { nome: usuario, senha: senha } })
+    .get(`${url}/user`, { params: { nome: usuario, senha: senha } })
     .then((res) => {
       let userLogado = res.data;
       setIdKey(userLogado.uid);

@@ -11,7 +11,7 @@ class Usuario {
 async function CriaNovoUsuario(nome, senha) {
   const user = new Usuario(nome, senha);
   await axios
-    .post(`${urlDev}/user`, user)
+    .post(`${url}/user`, user)
     .then((res) => {
       const novoUser = {
         nome: res.data.nome,
