@@ -1,4 +1,4 @@
-const url = "https://growdev-mod-3-back.herokuapp.com";
+const url = "https://mod-4-be.herokuapp.com";
 const urlDev = "http://localhost:8080";
 
 class Usuario {
@@ -11,7 +11,7 @@ class Usuario {
 async function CriaNovoUsuario(nome, senha) {
   const user = new Usuario(nome, senha);
   await axios
-    .post(`${urlDev}/user`, user)
+    .post(`${url}/user`, user)
     .then((res) => {
       const novoUser = {
         nome: res.data.nome,

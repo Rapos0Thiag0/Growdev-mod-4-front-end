@@ -1,11 +1,11 @@
-const url = "https://growdev-mod-3-back.herokuapp.com";
+const url = "https://mod-4-be.herokuapp.com";
 const urlDev = "http://localhost:8080";
 
 function login() {
   const usuario = document.querySelector("#usuarioNoLogin").value;
   const senha = document.querySelector("#senhaNoLogin").value;
   axios
-    .get(`${urlDev}/user`, { params: { nome: usuario, senha: senha } })
+    .get(`${url}/user`, { params: { nome: usuario, senha: senha } })
     .then((res) => {
       let userLogado = res.data;
       setIdKey(userLogado.uid);
