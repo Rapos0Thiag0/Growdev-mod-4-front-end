@@ -1,4 +1,4 @@
-const url = "https://mod-4-be.herokuapp.com";
+const url = "http://mod-4-be.herokuapp.com";
 const urlDev = "http://localhost:8080";
 
 // função para pegar os valores dos parametros de nome e id.
