@@ -1,4 +1,4 @@
-const url = "http://mod-4-be.herokuapp.com";
+const url = "https://mod-4-be.herokuapp.com";
 const urlDev = "http://localhost:8080";
 
 async function login() {
