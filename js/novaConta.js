@@ -22,7 +22,6 @@ async function CriaNovoUsuario(nome, senha) {
       return res.novoUser;
     })
     .then(() => {
-      // localStorage.setItem(nome, JSON.stringify(respo));
       resetarInputs();
       window.location.pathname = "./index.html";
     })

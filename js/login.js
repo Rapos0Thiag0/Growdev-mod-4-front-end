@@ -8,14 +8,13 @@ function login() {
     .get(`${urlDev}/user`, { params: { nome: usuario, senha: senha } })
     .then((res) => {
       let userLogado = res.data;
-      console.log(userLogado.nome, userLogado.uid);
       setIdKey(userLogado.uid);
       resetarInputs();
       location.href =
         "recados.html?nome=" + userLogado.nome + "&uid=" + userLogado.uid;
     })
     .catch((err) => {
-      console.log(err.response.data);
+      console.log(err.response);
       if (err.response.data == "field_error") {
         modal1.style.display = "block";
       } else if (err.response.data == "user_not_exist") {
@@ -32,20 +31,6 @@ function login() {
     document.querySelector("#usuarioNoLogin").value = "";
     document.querySelector("#senhaNoLogin").value = "";
   }
-
-  // if (user) {
-  //   if (user.senha === senha.value) {
-  //     logado(user);
-  //       window.location.href =
-  //         "recados.html?user=" + user.nome + "&id=" + user.id;
-  //   } else {
-  //     modal1.style.display = "block";
-  //     resetarInputs();
-  //   }
-  // } else {
-  //   modal2.style.display = "block";
-  //   resetarInputs();
-  // }
 
   botaoFecharModal1.addEventListener("click", () => {
     modal1.style.display = "none";

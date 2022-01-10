@@ -19,26 +19,24 @@ const userId = getParameterByName("uid");
 
 //busca as informações do usuário Logado no localStorage.
 const idUserLogado = JSON.parse(localStorage.getItem("user_id"));
-// console.log(idUserLogado);
 
 // evita que um usuário que não esteja logado acesse a pagina de outro usuário
-// function verificarLogado() {
-//   if (idUserLogado === null) {
-//     alert("Voçê não está logado!");
-//     window.location.href = "./index.html";
-//   } else {
-//     axios.get(`${urlDev}/user/` + idUserLogado + "/msg").then(() => {
-mostrarTabela();
-//     });
-//   }
-// }
-// verificarLogado();
+function verificarLogado() {
+  if (idUserLogado === null) {
+    alert("Voçê não está logado!");
+    window.location.href = "./index.html";
+  } else {
+    axios.get(`${urlDev}/user/` + idUserLogado + "/msg").then(() => {
+      mostrarTabela();
+    });
+  }
+}
+verificarLogado();
 
 // função que carrega as informações na tabela.
 async function mostrarTabela() {
   await axios.get(`${urlDev}/user/${idUserLogado}/msg`).then((res) => {
     let msgs = res.data;
-    // console.log(res);
     const table = document.querySelector("#tbody");
 
     table.innerHTML = "";
@@ -84,35 +82,40 @@ async function apagarLinha(posicao) {
 
 async function editarLinha(posicao) {
   let id = posicao;
+  await axios
+    .get(`${urlDev}/user/${idUserLogado}/msg/${id}`)
+    .then((res) => {
+      let msg = res.data;
+      let novaDesc = msg.descricao;
+      let novoDet = msg.detalhamento;
+      document.querySelector("#descricaoRecados").value = novaDesc;
+      document.querySelector("#detalhamentoRecados").value = novoDet;
+    })
+    .then(async () => {
+      editar(id);
+    });
+}
 
-  await axios.get(`${urlDev}/user/${idUserLogado}/msg/${id}`).then((res) => {
-    console.log(res.data);
-    let msg = res.data;
-    let novaDesc = msg.descricao;
-    let novoDet = msg.detalhamento;
-    document.querySelector("#descricaoRecados").value = novaDesc;
-    document.querySelector("#detalhamentoRecados").value = novoDet;
-  });
-
+async function editar(posicao) {
+  let id = posicao;
   const botaoAtualizar = document.querySelector("#botaoAtualizarRecados");
 
   botaoAtualizar.addEventListener("click", async () => {
     const desNova = document.querySelector("#descricaoRecados").value;
     const detNovo = document.querySelector("#detalhamentoRecados").value;
 
-    await axios
-      .put(`${urlDev}/user/${idUserLogado}/msg/${id}`, {
+    if (!!!desNova || desNova == "" || !!!detNovo || detNovo == "") {
+      alert("Preencha os campos de descrição e detalhamento!");
+    } else {
+      await axios.put(`${urlDev}/user/${idUserLogado}/msg/${id}`, {
         descricao: desNova,
         detalhamento: detNovo,
-      })
-      .then(() => {
-        resetarInputs();
-        mostrarTabela();
       });
+      resetarInputs();
+      mostrarTabela();
+    }
   });
 }
-
-//---------------------------
 
 async function addMensagem(desc, det) {
   const descricaoNova = desc;
