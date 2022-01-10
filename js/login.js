@@ -1,17 +1,21 @@
 const url = "http://mod-4-be.herokuapp.com";
 const urlDev = "http://localhost:8080";
 
-function login() {
+async function login() {
   const usuario = document.querySelector("#usuarioNoLogin").value;
   const senha = document.querySelector("#senhaNoLogin").value;
-  axios
+  await axios
     .get(`${urlDev}/user`, { params: { nome: usuario, senha: senha } })
     .then((res) => {
       let userLogado = res.data;
       setIdKey(userLogado.uid);
       resetarInputs();
-      location.href =
-        "recados.html?nome=" + userLogado.nome + "&uid=" + userLogado.uid;
+      return userLogado;
+    })
+    .then((res) => {
+      console.log(res);
+      return (location.href =
+        "recados.html?nome=" + res.nome + "&uid=" + res.uid);
     })
     .catch((err) => {
       console.log(err.response);
